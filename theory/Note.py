@@ -67,7 +67,40 @@ class Note(object):
         else:
             self.val -= other
         self.wrap()
-        return self        
+        return self
+
+    """
+    Comparison methods (==, >, >=, <, <=)
+    """
+    def __eq__(self, other):
+        if type(other) is Note:
+            return self.val == other.val
+        else:
+            return self.val == other
+    
+    def __gt__(self, other):
+        if type(other) is Note:
+            return self.val > other.val
+        else:
+            return self.val > other
+
+    def __ge__(self, other):
+        if type(other) is Note:
+            return self.val >= other.val
+        else:
+            return self.val >= other
+
+    def __lt__(self, other):
+        if type(other) is Note:
+            return self.val < other.val
+        else:
+            return self.val < other
+
+    def __le__(self, other):
+        if type(other) is Note:
+            return self.val <= other.val
+        else:
+            return self.val <= other
 
     def wrap(self):
         # Do we treat a note as a different note from

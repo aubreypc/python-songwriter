@@ -3,14 +3,14 @@ from theory.Note import Note
 
 class NoteTests(unittest.TestCase):
     def test_transposing(self):
-        A = Note(1)
-        self.assertEqual(A.val, 1)
+        n = Note(1)
+        self.assertEqual(n.val, 1)
 
-        A_sharp = A + 1
-        self.assertEqual(A_sharp.val, 2)
+        n2 = n + 1
+        self.assertEqual(n2.val, 2)
 
-        A2 = A_sharp - 1
-        self.assertEqual(A2.val, A.val)
+        n3 = n2 - 1
+        self.assertEqual(n3.val, n.val)
 
     def test_transposing_assignment(self):
         n = Note(1)

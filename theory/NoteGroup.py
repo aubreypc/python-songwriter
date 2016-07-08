@@ -10,11 +10,24 @@ class NoteGroup(object):
         if vals:
             self.add(vals)
 
+    def __iter__(self):
+        return iter(self.notes)
+
+    def __eq__(self, other):
+        vals = [note.val for note in self.notes]
+        other_vals = [note.val for note in other.notes]
+        if len(vals) != len(other_vals):
+            return False
+        for val in vals:
+            if val not in other_vals:
+                return False
+        return True
+
     def add(self, note):
         if type(note) is Set:
             self.notes.update(note)
         else:
-            self.notes.update(Set(note))
+            self.notes.update(Set([note]))
         return self.notes
 
     def remove(self, note):

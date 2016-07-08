@@ -3,15 +3,16 @@ class Note(object):
     A single note. Can be defined explicitly or implictly 
     (i.e. a certain interval away from an explicitly defined note).
     """
-    def __init__(self, val, octaves_unique=True):
-        # note values: A = 0, A#=1 ... G#=12
+    def __init__(self, val, octaves_unique=False):
+        # note values: A = 1, A#=1 ... G#=12
+        # starts at 1 to avoid issues with multiplying/dividing
         self.val = val
         self.octaves_unique = octaves_unique
 
 
     """
     The following methods implement transposing using Python's arithmetic operators
-    (+, -, /, *, **, %). Transposition here is explicit, but can be accomplished implicitly, e.g.:
+    (+, -, /, *, **). Transposition here is explicit, but can be accomplished implicitly, e.g.:
         A = Note(0)
         n = A + 7
     """
@@ -60,15 +61,6 @@ class Note(object):
         note.wrap()
         return note
 
-    def __mod__(self, other):
-        if type(other) is Note:
-            note = self.val % other.val
-        else:
-            note = self.val % other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
     def __radd__(self, other):
         if type(other) is Note:
             note = self.val + other.val
@@ -113,16 +105,7 @@ class Note(object):
         note.wrap()
         return note
 
-    def __rmod__(self, other):
-        if type(other) is Note:
-            note = self.val % other.val
-        else:
-            note = self.val % other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
-    def __add__(self, other):
+    def __iadd__(self, other):
         if type(other) is Note:
             self.val += other.val
         else:
@@ -130,7 +113,7 @@ class Note(object):
         self.wrap()
         return self
 
-    def __sub__(self, other):
+    def __isub__(self, other):
         if type(other) is Note:
             self.val -= other.val
         else:
@@ -138,7 +121,7 @@ class Note(object):
         self.wrap()
         return self        
 
-    def __mul__(self, other):
+    def __imul__(self, other):
         if type(other) is Note:
             self.val *= other.val
         else:
@@ -146,7 +129,7 @@ class Note(object):
         self.wrap()
         return self
 
-    def __div__(self, other):
+    def __idiv__(self, other):
         if type(other) is Note:
             self.val /= other.val
         else:
@@ -154,19 +137,11 @@ class Note(object):
         self.wrap()
         return self
 
-    def __pow__(self, other):
+    def __ipow__(self, other):
         if type(other) is Note:
             self.val **= other.val
         else:
             self.val **= other
-        self.wrap()
-        return self
-
-    def __mod__(self, other):
-        if type(other) is Note:
-            self.val %= other.val
-        else:
-            self.val %= other
         self.wrap()
         return self
 
@@ -175,4 +150,9 @@ class Note(object):
         # itself transposed up or down a certain number of octaves?
         # If not, wrap it back around to be between 0 and 12 with mod function
         if not self.octaves_unique:
-            self.val %= 12
+            if self.val > 12:
+                self.val %= 12
+            elif self.val == 0:
+                self.val = 12
+            elif self.val < 0:
+                self.val = (self.val * -1) % 12

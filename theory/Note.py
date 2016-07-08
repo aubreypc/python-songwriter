@@ -4,15 +4,16 @@ class Note(object):
     (i.e. a certain interval away from an explicitly defined note).
     """
     def __init__(self, val, octaves_unique=False):
-        # note values: A = 1, A#=1 ... G#=12
-        # starts at 1 to avoid issues with multiplying/dividing
+        # note values: A=0, A#=1 ... G#=11
         self.val = val
         self.octaves_unique = octaves_unique
 
 
     """
     The following methods implement transposing using Python's arithmetic operators
-    (+, -, /, *, **). Transposition here is explicit, but can be accomplished implicitly, e.g.:
+    (+, -). Multiplication, division, power, and mod left out to avoid issues with 0,
+    and because they would probably never be used.
+    Transposition here is explicit, but can be accomplished implicitly, e.g.:
         A = Note(0)
         n = A + 7
     """
@@ -34,33 +35,6 @@ class Note(object):
         note.wrap()
         return note       
 
-    def __mul__(self, other):
-        if type(other) is Note:
-            note = self.val * other.val
-        else:
-            note = self.val * other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
-    def __div__(self, other):
-        if type(other) is Note:
-            note = self.val / other.val
-        else:
-            note = self.val / other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
-    def __pow__(self, other):
-        if type(other) is Note:
-            note = self.val ** other.val
-        else:
-            note = self.val ** other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
     def __radd__(self, other):
         if type(other) is Note:
             note = self.val + other.val
@@ -75,32 +49,6 @@ class Note(object):
             note = self.val - other.val
         else:
             note = self.val - other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-    def __rmul__(self, other):
-        if type(other) is Note:
-            note = self.val * other.val
-        else:
-            note = self.val * other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
-    def __rdiv__(self, other):
-        if type(other) is Note:
-            note = self.val / other.val
-        else:
-            note = self.val / other
-        note = Note(val=note, octaves_unique=self.octaves_unique)
-        note.wrap()
-        return note
-
-    def __rpow__(self, other):
-        if type(other) is Note:
-            note = self.val ** other.val
-        else:
-            note = self.val ** other
         note = Note(val=note, octaves_unique=self.octaves_unique)
         note.wrap()
         return note
@@ -120,30 +68,6 @@ class Note(object):
             self.val -= other
         self.wrap()
         return self        
-
-    def __imul__(self, other):
-        if type(other) is Note:
-            self.val *= other.val
-        else:
-            self.val *= other
-        self.wrap()
-        return self
-
-    def __idiv__(self, other):
-        if type(other) is Note:
-            self.val /= other.val
-        else:
-            self.val /= other
-        self.wrap()
-        return self
-
-    def __ipow__(self, other):
-        if type(other) is Note:
-            self.val **= other.val
-        else:
-            self.val **= other
-        self.wrap()
-        return self
 
     def wrap(self):
         # Do we treat a note as a different note from

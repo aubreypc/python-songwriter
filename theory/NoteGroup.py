@@ -6,7 +6,9 @@ class NoteGroup(object):
     A group of notes. Base class for Scales and Chords.
     """
     def __init__(self, vals=None):
-        self.notes = vals
+        self.notes = Set()
+        if vals:
+            self.add(vals)
 
     def add(self, note):
         if type(note) is Set:

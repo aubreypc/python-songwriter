@@ -4,6 +4,12 @@ class Scale(NoteGroup):
     def __init__(self):
         super(self.__class__, self).__init__()
 
+    def get_steps(self):
+        #since scales are ordered, we want a list representation
+        steps = [note for note in self.notes]
+        sort(steps)
+        return steps
+
     def relative_mode(self, step):
         #same notes, rearranged to have a different root
         #it pains me to start the mode indices at 0 but
@@ -11,8 +17,9 @@ class Scale(NoteGroup):
         if step == 0:
             return self
         else:
-            notes = note + self.notes[step:] + self.notes[:step]
-            return Scale(notes)
+            steps = self.get_steps()
+            notes = note + steps[step:] + steps[:step]
+            return Scale(Set(notes))
         
 
 def chromatic():

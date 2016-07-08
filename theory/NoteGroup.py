@@ -8,20 +8,10 @@ class NoteGroup(object):
     def __init__(self, vals=None):
         self.notes = vals
 
-    def __getitem__(self, index):
-        if type(self.notes) is list:
-            return self.notes[index]
-
     def add(self, note):
-        if type(self.notes) is list: #for ordered groups
-            if type(note) is int and note not in self.notes: #just one note as input, not a collection
-                self.notes.append(note)
-            else:
-                for n in note:
-                    if note not in self.notes:
-                        self.notes.append(n)
-            sort(self.notes)
-        elif type(self.notes) is Set: #for unordered groups
+        if type(note) is Set:
+            self.notes.update(note)
+        else:
             self.notes.update(Set(note))
         return self.notes
 
@@ -32,7 +22,5 @@ class NoteGroup(object):
     def relative_to(self, root):
         #given a root note and a NoteGroup of intervals, 
         #return the NoteGroup which has the relative notes explicitly defined
-        notes = [note + interval for interval in self.notes]
-        if type(self.notes) is Set:
-            notes = Set(notes)
+        notes = Set([root + interval for interval in self.notes])
         return notes

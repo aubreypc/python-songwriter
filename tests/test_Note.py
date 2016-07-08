@@ -36,6 +36,18 @@ class NoteTests(unittest.TestCase):
         n2.wrap()
         self.assertEqual(n2.val, 0)
 
+    def test_comparison(self):
+        a = Note(1)
+        a2 = Note(1)
+        b = Note(3)
+
+        self.assertTrue(a == a2)
+        self.assertFalse(a == b)
+
+        self.assertTrue(a < b)
+        self.assertFalse(a > b)
+
+
 
 if __name__ == "__main__":
     unittest.main()

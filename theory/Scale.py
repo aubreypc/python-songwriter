@@ -18,7 +18,7 @@ class Scale(NoteGroup):
             return self
         else:
             steps = self.get_steps()
-            notes = [steps[step]] + steps[step:] + steps[:step]
+            notes = steps[step:] + steps[:step]
             return notes
         
 

@@ -118,9 +118,7 @@ class Note(object):
         # itself transposed up or down a certain number of octaves?
         # If not, wrap it back around to be between 0 and 12 with mod function
         if not self.octaves_unique:
-            if self.val > 12:
+            if self.val > 11:
                 self.val %= 12
-            elif self.val == 0:
-                self.val = 12
             elif self.val < 0:
                 self.val = (self.val * -1) % 12

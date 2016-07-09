@@ -24,6 +24,9 @@ class NoteGroup(object):
                 return False
         return True
 
+    def __ne__(self, other):
+        return not self.__eq__(other)
+
     def add(self, note):
         # when adding to a NoteGroup, we need to make sure
         # that the object we're adding is of type Note

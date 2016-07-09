@@ -39,9 +39,11 @@ class NoteGroupTests(unittest.TestCase):
         g.add(Note(1))
         g2.add(Note(1))
         self.assertTrue(g == g2)
+        self.assertFalse(g != g2)
 
         g2.add(Note(2))
         self.assertFalse(g == g2)
+        self.assertTrue(g != g2)
 
 if __name__ == "__main__":
     unittest.main()

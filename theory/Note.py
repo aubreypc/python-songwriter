@@ -88,6 +88,9 @@ class Note(object):
             return self.val == other.val
         else:
             return self.val == other
+
+    def __ne__(self, other):
+        return not self.__eq__(other)
     
     def __gt__(self, other):
         if type(other) is Note:

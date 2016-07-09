@@ -43,13 +43,18 @@ class NoteTests(unittest.TestCase):
         self.assertFalse(a == b)
 
         self.assertTrue(a < b)
+        self.assertTrue(a <= b)
         self.assertFalse(a > b)
+        self.assertFalse(a >= b)
 
         #what about things with other types?
         a3 = 1
         b2 = 3
 
         self.assertTrue(a3 == a)
+        self.assertFalse(a3 != a)
+
+        self.assertTrue(b2 != a)
         self.assertFalse(b2 == a)
 
 

@@ -34,6 +34,7 @@ class NoteGroup(object):
                 note.add(elem)
                 self.notes.update(note)
             else:
+                note.add(elem)
                 converted = [Note(elem, octaves_unique=self.octaves_unique) for elem in note]
                 self.notes.update(Set(converted))
         elif type(note) is list:

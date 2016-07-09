@@ -45,7 +45,7 @@ class NoteGroup(object):
                     converted.append(Note(elem, octaves_unique=self.octaves_unique))
             self.notes.update(Set(converted))
         elif type(note) is int:
-            self.notes.update(Set(Note(note, octaves_unique=self.octaves_unique)))
+            self.notes.update(Set([Note(note, octaves_unique=self.octaves_unique)]))
         else:
             self.notes.update(Set([note]))
         return self.notes

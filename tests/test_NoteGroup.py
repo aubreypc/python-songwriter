@@ -6,7 +6,7 @@ from theory.NoteGroup import NoteGroup
 class NoteGroupTests(unittest.TestCase):
     def test_adding_removing(self):
         g = NoteGroup()
-        n = Note(1)
+        n = Note(0)
         g.add(n)
         self.assertTrue(n in g)
 

@@ -20,17 +20,15 @@ class NoteTests(unittest.TestCase):
         self.assertEqual(n.val, 1)
 
     def test_wrapping(self):
-        n = Note(13, octaves_unique=False)
-        n.wrap()
-        self.assertEqual(n.val, 1)
+        n = Note(12, octaves_unique=False)
+        self.assertEqual(n.val, 0)
 
         n.val = 0
         n.wrap()
-        self.assertEqual(n.val, 12)
+        self.assertEqual(n.val, 0)
 
-        n2 = Note(13, octaves_unique=True)
-        n2.wrap()
-        self.assertEqual(n2.val, 13)
+        n2 = Note(12, octaves_unique=True)
+        self.assertEqual(n2.val, 12)
 
         n2.val = 0
         n2.wrap()

@@ -1,15 +1,6 @@
 from NoteGroup import NoteGroup
 
 class Scale(NoteGroup):
-    def __init__(self, *args, **kwargs):
-        super(self.__class__, self).__init__(*args, **kwargs)
-
-    def get_steps(self):
-        #since scales are ordered, we want a list representation
-        steps = [note for note in self.notes]
-        steps.sort()
-        return steps
-
     def relative_mode(self, step):
         #same notes, rearranged to have a different root
         #note that this is a list of notes rather than a Scale
@@ -17,7 +8,7 @@ class Scale(NoteGroup):
         if step == 0:
             return self
         else:
-            steps = self.get_steps()
+            steps = self.ordered()
             notes = steps[step:] + steps[:step]
             return notes
         

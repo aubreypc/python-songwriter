@@ -51,6 +51,12 @@ class NoteGroup(object):
             self.notes.update(Set([note]))
         return self.notes
 
+    def ordered(self):
+        #represent group as a list, ordered by value
+        steps = [note for note in self.notes]
+        steps.sort()
+        return steps
+
     def remove(self, note):
         self.notes.remove(note)
         return self.notes

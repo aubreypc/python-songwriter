@@ -27,7 +27,7 @@ def chromatic():
     return notes
 
 def major():
-    notes = Scale[(0, 2, 4, 5, 7, 9, 11])
+    notes = Scale([0, 2, 4, 5, 7, 9, 11])
     return notes
 
 def ionian():

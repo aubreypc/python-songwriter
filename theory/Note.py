@@ -7,6 +7,17 @@ class Note(object):
         # note values: A=0, A#=1 ... G#=11
         self.val = val
         self.octaves_unique = octaves_unique
+        self.wrap()
+
+    def __str__(self):
+        chromatic = ["A", "A#", "B", "C", "C#", "D", "D#", "E", "F", "F#", "G", "G#"]
+        if self.octaves_unique and self.val > 11:
+            return chromatic[self.val % 12]
+        else:
+            return chromatic[self.val]
+
+    def __repr__(self):
+        return "Note with val %d (%s)" % (self.val, self.__str__())
 
 
     """

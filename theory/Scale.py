@@ -7,7 +7,7 @@ class Scale(NoteGroup):
     def get_steps(self):
         #since scales are ordered, we want a list representation
         steps = [note for note in self.notes]
-        sort(steps)
+        steps.sort()
         return steps
 
     def relative_mode(self, step):
@@ -18,8 +18,8 @@ class Scale(NoteGroup):
             return self
         else:
             steps = self.get_steps()
-            notes = note + steps[step:] + steps[:step]
-            return Scale(Set(notes))
+            notes = steps[step:] + steps[:step]
+            return Scale(notes)
         
 
 def chromatic():

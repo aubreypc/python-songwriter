@@ -26,6 +26,8 @@ class NoteGroup(object):
     def add(self, note):
         if type(note) is Set:
             self.notes.update(note)
+        elif type(note) is list:
+            self.notes.update(Set(note))
         else:
             self.notes.update(Set([note]))
         return self.notes

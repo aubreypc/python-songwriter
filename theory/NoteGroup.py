@@ -5,8 +5,9 @@ class NoteGroup(object):
     """
     A group of notes. Base class for Scales and Chords.
     """
-    def __init__(self, vals=None):
+    def __init__(self, vals=None, octaves_unique=False):
         self.notes = Set()
+        self.octaves_unique = octaves_unique
         if vals:
             self.add(vals)
 
@@ -24,10 +25,27 @@ class NoteGroup(object):
         return True
 
     def add(self, note):
+        # when adding to a NoteGroup, we need to make sure
+        # that the object we're adding is of type Note
+        # sometimes dynamically typed languages can be a headache
         if type(note) is Set:
-            self.notes.update(note)
+            elem = note.pop()
+            if type(elem) is Note:
+                note.add(elem)
+                self.notes.update(note)
+            else:
+                converted = [Note(elem, octaves_unique=self.octaves_unique) for elem in note]
+                self.notes.update(Set(converted))
         elif type(note) is list:
-            self.notes.update(Set(note))
+            converted = []
+            for elem in note:
+                if type(elem) is Note:
+                    converted.append(elem)
+                else:
+                    converted.append(Note(elem, octaves_unique=self.octaves_unique))
+            self.notes.update(Set(converted))
+        elif type(note) is int:
+            self.notes.update(Set(Note(note, octaves_unique=self.octaves_unique)))
         else:
             self.notes.update(Set([note]))
         return self.notes
@@ -40,4 +58,4 @@ class NoteGroup(object):
         #given a root note and a NoteGroup of intervals, 
         #return the NoteGroup which has the relative notes explicitly defined
         notes = Set([root + interval for interval in self.notes])
-        return notes
+        return NoteGroup(notes)

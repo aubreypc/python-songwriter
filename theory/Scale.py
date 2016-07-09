@@ -1,8 +1,8 @@
 from NoteGroup import NoteGroup
 
 class Scale(NoteGroup):
-    def __init__(self):
-        super(self.__class__, self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(self.__class__, self).__init__(*args, **kwargs)
 
     def get_steps(self):
         #since scales are ordered, we want a list representation
@@ -23,7 +23,7 @@ class Scale(NoteGroup):
         
 
 def chromatic():
-    notes = Scale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11)
+    notes = Scale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11])
     return notes
 
 def major():

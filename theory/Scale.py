@@ -12,14 +12,14 @@ class Scale(NoteGroup):
 
     def relative_mode(self, step):
         #same notes, rearranged to have a different root
-        #it pains me to start the mode indices at 0 but
-        #that is the way we roll in computer science
+        #note that this is a list of notes rather than a Scale
+        #in order to preserve ordering
         if step == 0:
             return self
         else:
             steps = self.get_steps()
-            notes = steps[step:] + steps[:step]
-            return Scale(notes)
+            notes = [steps[step]] + steps[step:] + steps[:step]
+            return notes
         
 
 def chromatic():

@@ -47,6 +47,13 @@ class NoteTests(unittest.TestCase):
         self.assertTrue(a < b)
         self.assertFalse(a > b)
 
+        #what about things with other types?
+        a3 = 1
+        b2 = 3
+
+        self.assertTrue(a3 == a)
+        self.assertFalse(b2 == a)
+
 
 
 if __name__ == "__main__":

@@ -60,6 +60,15 @@ class NoteGroup(object):
         steps.sort()
         return steps
 
+    def starting_with(self, step):
+        #same notes, rearranged to have a different root
+        if step == 0:
+            return self
+        else:
+            steps = self.ordered()
+            notes = steps[step:] + steps[:step]
+            return notes
+
     def remove(self, note):
         self.notes.remove(note)
         return self.notes

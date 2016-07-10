@@ -2,15 +2,7 @@ from NoteGroup import NoteGroup
 
 class Scale(NoteGroup):
     def relative_mode(self, step):
-        #same notes, rearranged to have a different root
-        #note that this is a list of notes rather than a Scale
-        #in order to preserve ordering
-        if step == 0:
-            return self
-        else:
-            steps = self.ordered()
-            notes = steps[step:] + steps[:step]
-            return notes
+        return self.starting_with(step)
         
 
 def chromatic():

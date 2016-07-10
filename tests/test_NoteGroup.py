@@ -45,5 +45,22 @@ class NoteGroupTests(unittest.TestCase):
         self.assertFalse(g == g2)
         self.assertTrue(g != g2)
 
+    def test_ordered(self):
+        g = NoteGroup(Set([2, 4, 0]))
+        steps = g.ordered()
+        self.assertTrue(type(steps) is list)
+        self.assertTrue(len(steps) == len(g.notes))
+        for step in steps:
+            self.assertTrue(step in g.notes)
+
+    def test_starting_with(self):
+        g = NoteGroup(Set([0, 2, 4]))
+        g_steps = g.ordered()
+        rel = g.starting_with(1)
+        self.assertTrue(len(rel) == len(g_steps))
+        self.assertTrue(rel[0] == 2)
+        self.assertTrue(rel[1] == 4)
+        self.assertTrue(rel[2] == 0)
+
 if __name__ == "__main__":
     unittest.main()

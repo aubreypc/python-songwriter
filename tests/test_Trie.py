@@ -17,12 +17,16 @@ class TrieTests(unittest.TestCase):
         node3 = node2.make_child(3, 1)
         
         current = t.travel(0)
-        self.assertTrue(current.val == 2)
+        self.assertTrue(current is node2)
 
         current = t.travel(1)
-        self.assertTrue(current.val == 3)
+        self.assertTrue(current is node3)
+
+        current = t.travel(-1)
+        self.assertTrue(current is node2)
 
         with self.assertRaises(StopIteration):
+            t.travel(1)
             t.travel(1)
 
 if __name__ == "__main__":

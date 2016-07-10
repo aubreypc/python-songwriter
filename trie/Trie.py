@@ -9,9 +9,12 @@ class Trie(object):
     def generator(self):
         while True:
             self.target_link = yield
-            if not self.current.has_children():
-                break
-            self.current = self.current.links[self.target_link]
+            if self.target_link == -1:
+                self.current = self.current.parent
+            else:
+                if not self.current.has_children():
+                    break
+                self.current = self.current.links[self.target_link]
             yield self.current
 
     def new_cursor(self):

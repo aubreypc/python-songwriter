@@ -2,7 +2,7 @@ from NoteGroup import NoteGroup
 
 class Scale(NoteGroup):
     def relative_mode(self, step):
-        return self.starting_with(step)
+        return Scale(self.starting_with(step))
         
 
 def chromatic_scale():
@@ -17,22 +17,28 @@ def ionian_mode():
     return major_scale()
 
 def dorian_mode():
-    notes = major_scale().relative_mode(self, 1)
+    notes = major_scale().relative_mode(1)
+    return notes
 
 def phrygian_mode():
-    notes = major_scale().relative_mode(self, 2)
+    notes = major_scale().relative_mode(2)
+    return notes
 
 def lydian_mode():
-    notes = major_scale().relative_mode(self, 3)
+    notes = major_scale().relative_mode(3)
+    return notes
 
 def mixolydian_mode():
-    notes = major_scale().relative_mode(self, 4)
+    notes = major_scale().relative_mode(4)
+    return notes
 
 def aeolian_mode():
-    notes = major_scale().relative_mode(self, 5)
+    notes = major_scale().relative_mode(5)
+    return notes
 
 def minor_scale():
     return aeolian_mode()
 
 def locrian_mode():
-    notes = major_scale().relative_mode(self, 6)
+    notes = major_scale().relative_mode(6)
+    return notes

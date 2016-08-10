@@ -62,5 +62,11 @@ class NoteGroupTests(unittest.TestCase):
         self.assertTrue(rel[1] == 4)
         self.assertTrue(rel[2] == 0)
 
+    def test_contains(self):
+	g = NoteGroup(Set([0, 2]))
+	self.assertTrue(Note(0) in g)
+	self.assertTrue(Note(2) in g)
+	self.assertTrue(Note(4) not in g)
+
 if __name__ == "__main__":
     unittest.main()

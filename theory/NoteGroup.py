@@ -8,7 +8,10 @@ class NoteGroup(object):
     def __init__(self, vals=None, root=None, octaves_unique=False, name=None, group_type_name=None):
         self.notes = Set()
         self.octaves_unique = octaves_unique
-        self.root = root
+        if type(root) is int:
+            self.root = Note(root)
+        else:
+            self.root = root
         if vals:
             self.add(vals)
         self.name = name

@@ -1,3 +1,4 @@
+from Note import Note
 from NoteGroup import NoteGroup
 
 class Scale(NoteGroup):
@@ -9,19 +10,25 @@ class Scale(NoteGroup):
 
     def __add__(self, other):
         # transpose with + operator
-        return Scale([note.val + other for note in self.notes])
+        s = Scale([note.val + other for note in self.notes])
+        if self.root:
+            s.root = Note(self.root.val + other)
+        return s
 
     def __sub__(self, other):
         #transpose with - operator
-        return Scale([note.val - other for note in self.notes])
+        s = Scale([note.val - other for note in self.notes])
+        if self.root:
+            s.root = Note(self.root.val + other)
+        return s
 
 
 def chromatic_scale():
-    notes = Scale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], name="chromatic")
+    notes = Scale([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], name="chromatic", root=0)
     return notes
 
 def major_scale():
-    notes = Scale([0, 2, 4, 5, 7, 9, 11], name="ionian (major)")
+    notes = Scale([0, 2, 4, 5, 7, 9, 11], name="ionian (major)", root=0)
     return notes
 
 def ionian_mode():

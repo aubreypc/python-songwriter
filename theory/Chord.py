@@ -5,4 +5,4 @@ class Chord(NoteGroup):
         super(Chord, self).__init__(*args, group_type_name="chord", **kwargs)
 
     def inversion(self, step):
-        return self.starting_with(step)
+        return Chord(self.notes, root=step)

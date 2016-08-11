@@ -52,6 +52,16 @@ class NoteGroupTests(unittest.TestCase):
         self.assertTrue(len(steps) == len(g.notes))
         for step in steps:
             self.assertTrue(step in g.notes)
+        
+        root_note = Note(2)
+        n2 = Note(4)
+        n3 = Note(0)
+        g2 = NoteGroup(Set([n2, n3, root_note]), root=root_note)
+        steps2 = g2.ordered()
+        self.assertTrue(steps2[0] == root_note)
+        self.assertTrue(steps2[1] == n2)
+        self.assertTrue(steps2[2] == n3)
+
 
     def test_starting_with(self):
         g = NoteGroup(Set([0, 2, 4]))

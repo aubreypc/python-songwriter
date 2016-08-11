@@ -5,9 +5,10 @@ class NoteGroup(object):
     """
     A group of notes. Base class for Scales and Chords.
     """
-    def __init__(self, vals=None, octaves_unique=False, name=None, group_type_name=None):
+    def __init__(self, vals=None, root=None, octaves_unique=False, name=None, group_type_name=None):
         self.notes = Set()
         self.octaves_unique = octaves_unique
+        self.root = root
         if vals:
             self.add(vals)
         self.name = name
@@ -49,25 +50,19 @@ class NoteGroup(object):
         # when adding to a NoteGroup, we need to make sure
         # that the object we're adding is of type Note
         # sometimes dynamically typed languages can be a headache
-        if type(note) is Set:
-            elem = note.pop()
-            if type(elem) is Note:
-                note.add(elem)
-                self.notes.update(note)
-            else:
-                note.add(elem)
-                converted = [Note(elem, octaves_unique=self.octaves_unique) for elem in note]
-                self.notes.update(Set(converted))
-        elif type(note) is list:
-            converted = []
+        if type(note) is list or type(note) is Set:
             for elem in note:
                 if type(elem) is Note:
-                    converted.append(elem)
+                    converted = elem
                 else:
-                    converted.append(Note(elem, octaves_unique=self.octaves_unique))
-            self.notes.update(Set(converted))
+                    converted = Note(elem, octaves_unique=self.octaves_unique)
+                self.add(converted)
         elif type(note) is int:
-            self.notes.update(Set([Note(note, octaves_unique=self.octaves_unique)]))
+            self.add(Note(note, octaves_unique=self.octaves_unique))
+        elif type(note) is Note:
+            self.notes.update(Set([note]))
+            if not self.root:
+                self.root = note
         else:
             self.notes.update(Set([note]))
         return self.notes
@@ -76,6 +71,9 @@ class NoteGroup(object):
         #represent group as a list, ordered by value
         steps = [note for note in self.notes]
         steps.sort()
+        if self.root:
+            root_index = steps.index(self.root)
+            steps = steps[root_index:] + steps[:root_index]
         return steps
 
     def starting_with(self, step):

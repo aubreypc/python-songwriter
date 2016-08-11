@@ -5,14 +5,32 @@ class NoteGroup(object):
     """
     A group of notes. Base class for Scales and Chords.
     """
-    def __init__(self, vals=None, octaves_unique=False):
+    def __init__(self, vals=None, octaves_unique=False, name=None, group_type_name=None):
         self.notes = Set()
         self.octaves_unique = octaves_unique
         if vals:
             self.add(vals)
+        self.name = name
+        self.group_type_name = group_type_name
 
     def __iter__(self):
         return iter(self.notes)
+
+    def __repr__(self):
+        if self.name and self.group_type_name:
+		    return "{} {} {}: {}".format(
+		        str(self.ordered()[0]),
+		        self.name,
+		        self.group_type_name,
+		        [str(n) for n in self.ordered()],
+		    )
+        elif self.group_type_name:
+		    return "{}: {}".format(
+		        self.group_type_name,
+		        [str(n) for n in self.ordered()],
+            )
+        else:
+            return "Note group: " + [str(n) for n in self.ordered()]    
 
     def __eq__(self, other):
         vals = [note.val for note in self.notes]

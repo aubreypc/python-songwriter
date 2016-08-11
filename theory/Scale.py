@@ -5,7 +5,7 @@ class Scale(NoteGroup):
 	    super(Scale, self).__init__(*args, group_type_name="scale", **kwargs)
 
     def relative_mode(self, step):
-        return Scale(self.starting_with(step))
+        return Scale(self.notes, root=step)
 
     def __add__(self, other):
         # transpose with + operator

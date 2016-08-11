@@ -19,6 +19,11 @@ class Note(object):
     def __repr__(self):
         return "Note with val %d (%s)" % (self.val, self.__str__())
 
+    def __hash__(self):
+        # hashing should be done based on the value of the note rather than
+        # its memory address
+        return hash(self.val)
+
 
     """
     The following methods implement transposing using Python's arithmetic operators

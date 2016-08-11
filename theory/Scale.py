@@ -10,7 +10,7 @@ class Scale(NoteGroup):
 
     def __add__(self, other):
         # transpose with + operator
-        s = Scale([note.val + other for note in self.notes])
+        s = Scale([note.val + other for note in self.notes], name=self.name)
         if self.root:
             s.root = Note(self.root.val + other)
         return s

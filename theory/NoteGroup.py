@@ -1,4 +1,3 @@
-from sets import Set
 from Note import Note
 
 class NoteGroup(object):
@@ -6,7 +5,7 @@ class NoteGroup(object):
     A group of notes. Base class for Scales and Chords.
     """
     def __init__(self, vals=None, root=None, octaves_unique=False, name=None, group_type_name=None):
-        self.notes = Set()
+        self.notes = set()
         self.octaves_unique = octaves_unique
         if type(root) is int:
             self.root = Note(root)
@@ -53,7 +52,7 @@ class NoteGroup(object):
         # when adding to a NoteGroup, we need to make sure
         # that the object we're adding is of type Note
         # sometimes dynamically typed languages can be a headache
-        if type(note) is list or type(note) is Set:
+        if type(note) is list or type(note) is set:
             for elem in note:
                 if type(elem) is Note:
                     converted = elem
@@ -63,11 +62,11 @@ class NoteGroup(object):
         elif type(note) is int:
             self.add(Note(note, octaves_unique=self.octaves_unique))
         elif type(note) is Note:
-            self.notes.update(Set([note]))
+            self.notes.update(set([note]))
             if not self.root:
                 self.root = note
         else:
-            self.notes.update(Set([note]))
+            self.notes.update(set([note]))
         return self.notes
 
     def ordered(self):
@@ -95,5 +94,5 @@ class NoteGroup(object):
     def relative_to(self, root):
         #given a root note and a NoteGroup of intervals, 
         #return the NoteGroup which has the relative notes explicitly defined
-        notes = Set([root + interval for interval in self.notes])
+        notes = set([root + interval for interval in self.notes])
         return NoteGroup(notes)

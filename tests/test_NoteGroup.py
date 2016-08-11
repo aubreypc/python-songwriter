@@ -1,5 +1,4 @@
 import unittest
-from sets import Set
 from theory.Note import Note
 from theory.NoteGroup import NoteGroup
 
@@ -26,7 +25,7 @@ class NoteGroupTests(unittest.TestCase):
         g = NoteGroup()
         n = Note(0)
         n2 = Note(1)
-        g.add(Set([n, n2]))
+        g.add(set([n, n2]))
         g2 = g.relative_to(2)
         self.assertTrue(len(g2.notes) == 2)
         self.assertTrue(2 in g2)
@@ -46,7 +45,7 @@ class NoteGroupTests(unittest.TestCase):
         self.assertTrue(g != g2)
 
     def test_ordered(self):
-        g = NoteGroup(Set([2, 4, 0]))
+        g = NoteGroup(set([2, 4, 0]))
         steps = g.ordered()
         self.assertTrue(type(steps) is list)
         self.assertTrue(len(steps) == len(g.notes))
@@ -56,7 +55,7 @@ class NoteGroupTests(unittest.TestCase):
         root_note = Note(2)
         n2 = Note(4)
         n3 = Note(0)
-        g2 = NoteGroup(Set([n2, n3, root_note]), root=root_note)
+        g2 = NoteGroup(set([n2, n3, root_note]), root=root_note)
         steps2 = g2.ordered()
         self.assertTrue(steps2[0] == root_note)
         self.assertTrue(steps2[1] == n2)
@@ -64,7 +63,7 @@ class NoteGroupTests(unittest.TestCase):
 
 
     def test_starting_with(self):
-        g = NoteGroup(Set([0, 2, 4]))
+        g = NoteGroup(set([0, 2, 4]))
         g_steps = g.ordered()
         rel = g.starting_with(1)
         self.assertTrue(len(rel) == len(g_steps))
@@ -73,7 +72,7 @@ class NoteGroupTests(unittest.TestCase):
         self.assertTrue(rel[2] == 0)
 
     def test_contains(self):
-	g = NoteGroup(Set([0, 2]))
+	g = NoteGroup(set([0, 2]))
 	self.assertTrue(Note(0) in g)
 	self.assertTrue(Note(2) in g)
 	self.assertTrue(Note(4) not in g)

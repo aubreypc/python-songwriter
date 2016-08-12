@@ -5,6 +5,7 @@ import theory.Chord as Chord
 Define our default search domains.
 """
 
+ONE_DIATONIC_SCALE = [Scale.major_scale()]
 ALL_MAJOR_SCALES = [Scale.major_scale() + i for i in range(12)]
 # TODO: revisit this --- we don't actually need ALL the major scales,
 # if we're modifying the input such that the root note has val 0

@@ -1,4 +1,4 @@
-from search import Domain, Sequential, Subset
+from search import Domain, Sequential, Subset, Substring
 from theory.Note import Note
 from theory.Scale import chromatic_scale
 import argparse
@@ -31,6 +31,11 @@ if __name__ == "__main__":
             results = Sequential.run(input, domain)
         elif search.lower() == "subset":
             results = Subset.run(input, domain)
+        elif search.lower() == "substring":
+            #since domains work a little differently here
+            results = []
+            if args.scales:
+                results += Substring.run(input, Domain.ONE_DIATONIC_SCALE)
         else:
             raise Exception("Invalid search type: " + search)
         if args.verbose:

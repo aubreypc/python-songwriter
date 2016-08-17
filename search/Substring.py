@@ -34,6 +34,7 @@ def run(input, domain):
                 # if we have found a matching subinterval,
                 # we know that the diatonic mode beginning with our first note
                 # is a solution
+                print "New solution: mode %d" % start
                 solutions.append(DIATONIC_MODES[start] + modifier)
             except StopIteration:
                 print "Solution not found."
@@ -49,14 +50,14 @@ def position_interval(sub_inter, super_inter):
         dq.append(interval)
         val = sum(dq)
         print val
+        if val > sub_inter:
+            # make space at the front of our deque
+            dq.popleft()
+            val = sum(dq)
         if val == sub_inter:
             print "FOUND at position %d" % index
             dq.clear()
             yield (start_index, index)
-        elif val > sub_inter:
-            # make space at the front of our deque
-            dq.popleft()
-            start_index += 1
 
 def position_neighbor(sub_inter, super_inter):
     # function to test whether a particular sub-interval can be found

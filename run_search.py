@@ -20,6 +20,9 @@ if __name__ == "__main__":
     input = [Note(chrom.index(arg)) for arg in args.Note]
     
     domain = []
+    if not args.scales and not args.chords:
+        print "Neither chords nor scales selected. Use -s and/or -c. Default behavior is to use both."
+        args.scales, args.chords = True, True
     if args.scales:
         domain += Domain.ALL_MAJOR_SCALES
     if args.chords:

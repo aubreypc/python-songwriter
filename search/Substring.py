@@ -34,8 +34,10 @@ def run(input, domain, verbose=False):
                 start, end = next(gen)
                 # if we have found a matching subinterval,
                 # we know that the diatonic mode beginning with our first note
-                # is a solution
+                # is a solution. convert it to major mode
                 solution = DIATONIC_MODES[start] + modifier 
+                solution = solution.relative_mode(0)
+                solution.name = DIATONIC_MODES[0].name
                 if verbose:
                     print "New solution: mode %d" % start
                     print solution
@@ -84,18 +86,19 @@ def position_neighbor(sub_inter, super_inter, verbose=False):
             # it is clear that the next match will not be 
             # an immediate neighbor
             return False
+    return False
 
 
 def position_all_intervals(sub_inters, super_inter, verbose=False):
     # generator for positioning all intervals
     # position the first, then try positioning neighbors
     # and yield all valid positions
-    gen = position_interval(sub_inters[0], super_inter)
+    gen = position_interval(sub_inters[0], super_inter, verbose=verbose)
     while True:
         try:
             start, end = next(gen)
             if verbose:
-                print "Next position: %d" % start
+                print "First interval matched at position: %d" % start
         except StopIteration:
             if verbose:
                 print "Outer gen raised StopIteration"
@@ -110,14 +113,17 @@ def position_all_intervals(sub_inters, super_inter, verbose=False):
             next_index = start
             for inter in sub_inters[1:]:
                 #position the neighbors
-                slice_start = next_index
-                next_index = position_neighbor(inter, super_inter[slice_start:])
+                slice_start = next_index + 1
+                if verbose:
+                    print "Neighbor interval: " + str(super_inter[slice_start:])
+                next_index = position_neighbor(inter, super_inter[slice_start:], verbose=verbose)
                 if next_index is not False:
                     if verbose:
                         print "Neighbor found successfully"
+                        print next_index
                     # since we found the neighbor, we expand our
                     # list indices to reflect the matching intervals
-                    end = next_index + slice_start #TODO: make sure this isnt causing bugs
+                    end = next_index #TODO: make sure this isnt causing bugs
                     continue
                 else:
                     if verbose:

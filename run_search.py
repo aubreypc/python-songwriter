@@ -1,6 +1,6 @@
 from search import Domain, Sequential, Subset, Substring
 from theory.Note import Note
-from theory.Scale import chromatic_scale
+from theory.Scale import Scale, chromatic_scale, DIATONIC_MODES
 import argparse
 
 parser = argparse.ArgumentParser(description="Search through musical scales and chords.")
@@ -10,6 +10,8 @@ parser.add_argument("Note", help="A note to search for.", nargs="+")
 parser.add_argument("-s", "--scales", help="Add scales to the search domain.", action="store_true")
 parser.add_argument("-c", "--chords", help="Add chords to the search domain.", action="store_true")
 parser.add_argument("-t", help="The types of searches (sequential/subset) to run.", action="append", dest="searches", default=[])
+parser.add_argument("--basic-scales", help="Restrict search results to major and minor scales.", action="store_true", dest="basic_scales", default=False)
+parser.add_argument("--basic-chords", help="Restrict search results to major and minor chords.", action="store_true", dest="basic_chords", default=False)
 
 if __name__ == "__main__":
     args = parser.parse_args()
@@ -41,6 +43,20 @@ if __name__ == "__main__":
         if args.verbose:
             print "Ran %s search." % search
         print "Search results:"
+        additions = []
+        for result in results:
+            # add relative modes
+            if type(result) is Scale:
+                if not args.basic_scales:
+                    roots = range(1,7)
+                    for root in roots:
+                        rel = result.relative_mode(root)
+                        rel.name = DIATONIC_MODES[root].name
+                        additions.append(rel)
+                else:
+                    rel = result.relative_mode(5)
+                    rel.name = DIATONIC_MODES[5].name
+                    additions.append(rel)
+        results += additions
         for result in results:
             print result
-

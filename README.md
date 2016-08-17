@@ -1,17 +1,14 @@
-usage: run_search.py [-h] [-v] [-s] [-c] [-t SEARCHES] [--basic-scales]
-                     [--basic-chords]
-                     Note [Note ...]
+Python Songwriter
+=================
 
-Search through musical scales and chords.
+A simple command-line utility for finding scales and/or chords which are compatible with a group of input notes. Developed as a final project for my algorithms class.
 
-positional arguments:
-  Note            A note to search for.
+usage example --- find scales and chords compatible with notes A and C: 
 
-optional arguments:
-  -h, --help      show this help message and exit
-  -v, --verbose   Enable verbose output
-  -s, --scales    Add scales to the search domain.
-  -c, --chords    Add chords to the search domain.
-  -t SEARCHES     The types of searches (sequential/subset) to run.
-  --basic-scales  Restrict search results to major and minor scales.
-  --basic-chords  Restrict search results to major and minor chords.
+```python run_search.py -sc A C```
+
+For advanced usage, run ```python run_search.py -h``` to see all optional arguments.
+
+##Running tests
+
+To run the unit tests, do ```python -m unittest discover```.

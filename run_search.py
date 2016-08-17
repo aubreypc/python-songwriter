@@ -35,7 +35,7 @@ if __name__ == "__main__":
             #since domains work a little differently here
             results = []
             if args.scales:
-                results += Substring.run(input, Domain.ONE_DIATONIC_SCALE)
+                results += Substring.run(input, Domain.ONE_DIATONIC_SCALE, verbose=args.verbose)
         else:
             raise Exception("Invalid search type: " + search)
         if args.verbose:

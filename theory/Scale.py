@@ -66,3 +66,13 @@ def locrian_mode():
     notes = major_scale().relative_mode(6)
     notes.name = "locrian"
     return notes
+
+DIATONIC_MODES = [
+    ionian_mode(),
+    dorian_mode(),
+    phrygian_mode(),
+    lydian_mode(),
+    mixolydian_mode(),
+    aeolian_mode(),
+    locrian_mode(),
+]
